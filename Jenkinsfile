@@ -47,14 +47,30 @@ pipeline {
             }
         }
 
-         stage('Build Docker Image') {
+        stage('Set Docker Host') {
                     steps {
-                        // Build Docker image
                         script {
-                            docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
+                            if (isUnix()) {
+                                env.DOCKER_HOST = 'unix:///var/run/docker.sock'
+                            } else {
+                                env.DOCKER_HOST = 'npipe:////./pipe/docker_engine'
+                            }
                         }
                     }
                 }
+
+                stage('Build Docker Image') {
+                    steps {
+                        script {
+                            if (isUnix()) {
+                                sh "docker build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} ."
+                            } else {
+                                bat "docker build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} ."
+                            }
+                        }
+                    }
+                }
+
                 stage('Push Docker Image to Docker Hub') {
                     steps {
                         script {
@@ -64,9 +80,9 @@ pipeline {
                                 } else {
                                     bat "docker push ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}"
                                 }
-
+                            }
                         }
                     }
                 }
-    }
-}
+            }
+        }
