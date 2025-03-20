@@ -61,9 +61,12 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                // Build Docker image
                 script {
-                    docker.build("${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}")
+                    if (isUnix()) {
+                        sh "docker build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} ."
+                    } else {
+                        bat "docker build -t ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG} ."
+                    }
                 }
             }
         }
