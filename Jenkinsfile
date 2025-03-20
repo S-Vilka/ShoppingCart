@@ -1,13 +1,20 @@
 pipeline {
     agent any
-     environment {
+
+    tools{
+      maven 'Maven3'
+      jdk 'JDK_21'
+      }
+
+    environment {
             // Define Docker Hub credentials ID
             DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
             // Define Docker Hub repository name
             DOCKERHUB_REPO = 'sergeivilka/shoppingcart'
             // Define Docker image tag
             DOCKER_IMAGE_TAG = 'latest_v1'
-        }
+       }
+
     stages {
         stage('Checkout') {
             steps {
