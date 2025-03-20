@@ -13,7 +13,7 @@ pipeline {
             DOCKERHUB_REPO = 'sergeivilka/shoppingcart'
             // Define Docker image tag
             DOCKER_IMAGE_TAG = 'latest_v1'
-       }
+        }
 
     stages {
         stage('Checkout') {
