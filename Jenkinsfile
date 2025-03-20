@@ -7,13 +7,13 @@ pipeline {
     }
 
     environment {
-            // Define Docker Hub credentials ID
-            DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
-            // Define Docker Hub repository name
-            DOCKERHUB_REPO = 'sergeivilka/shoppingcart'
-            // Define Docker image tag
-            DOCKER_IMAGE_TAG = 'latest_v1'
-        }
+        // Define Docker Hub credentials ID
+        DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
+        // Define Docker Hub repository name
+        DOCKERHUB_REPO = 'sergeivilka/shoppingcart'
+        // Define Docker image tag
+        DOCKER_IMAGE_TAG = 'latest_v1'
+    }
 
     stages {
         stage('Checkout') {
@@ -80,7 +80,6 @@ pipeline {
 
                         // Push Docker images to Docker Hub
                         sh "docker push ${DOCKERHUB_REPO}:${DOCKER_IMAGE_TAG}"
-                    }
                     }
                 }
             }
