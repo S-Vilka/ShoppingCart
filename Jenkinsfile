@@ -4,7 +4,7 @@ pipeline {
             // Define Docker Hub credentials ID
             DOCKERHUB_CREDENTIALS_ID = 'Docker_Hub'
             // Define Docker Hub repository name
-            DOCKERHUB_REPO = 'add_later'
+            DOCKERHUB_REPO = 'sergeivilka/shoppingcart'
             // Define Docker image tag
             DOCKER_IMAGE_TAG = 'latest_v1'
         }
